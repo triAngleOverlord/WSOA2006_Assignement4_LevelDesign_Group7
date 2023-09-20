@@ -32,9 +32,15 @@ public class PlayerMovement : MonoBehaviour
     public Transform broomBar;
     bool isFlying;
 
+    public GameObject interactWithTree;
+    public LayerMask magmenos;
+    bool lookAtMagmenos;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        interactWithTree.SetActive(false);
         playerHeight = 2;
         speedRotate = 2;
         Cursor.lockState = CursorLockMode.Locked;
@@ -48,13 +54,20 @@ public class PlayerMovement : MonoBehaviour
         pCamera.transform.position = cameraPOS.position;
         xRotate += speedRotate * Input.GetAxis("Mouse X");
         yRotate -= speedRotate * Input.GetAxis("Mouse Y");
+        flightStamina = broomBar.GetComponent<Slider>().value;
 
         pCamera.eulerAngles = new Vector3(Mathf.Clamp(yRotate, -90f, 90f), xRotate, 0.0f);
         transform.eulerAngles = new Vector3(0, xRotate, 0.0f);
 
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, theGround);
-        flightStamina = broomBar.GetComponent<Slider>().value;
 
+        Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
+        //Debug.DrawRay(transform.position, forward, Color.green);
+        lookAtMagmenos = Physics.Raycast(transform.position,forward, 10f, magmenos);
+        if (lookAtMagmenos)
+            interactWithTree.SetActive(true);
+        else
+            interactWithTree.SetActive(false);
 
         myInput();
         if (grounded)
@@ -92,6 +105,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else
             isFlying= false;
+
+        if (Input.GetKey(KeyCode.Q) && lookAtMagmenos)
+        {
+            broomBar.GetComponent<Slider>().value = 10f;
+        }
 
     }
 
