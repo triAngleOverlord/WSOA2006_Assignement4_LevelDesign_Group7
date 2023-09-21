@@ -18,7 +18,11 @@ public class PickUpController : MonoBehaviour
     
     private Rigidbody CurrentObject;
     public GameObject interactWithItem;
-    
+
+    public void Start()
+    {
+        interactWithItem.SetActive(false);
+    }
 
     void Update()
     {
@@ -47,6 +51,8 @@ public class PickUpController : MonoBehaviour
                 CurrentObject.useGravity = false;
             }
         }
+
+
     }
 
     void FixedUpdate()
