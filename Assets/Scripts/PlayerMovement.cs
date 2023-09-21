@@ -36,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask magmenos;
     bool lookAtMagmenos;
 
+    bool bookIsOpen;
+    public GameObject spellBook;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
+        spellBook.SetActive(false);
     }
 
     // Update is called once per frame
@@ -110,6 +113,22 @@ public class PlayerMovement : MonoBehaviour
         {
             broomBar.GetComponent<Slider>().value = 10f;
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (!bookIsOpen)
+            {
+                spellBook.SetActive(true);
+                bookIsOpen = true;
+            }
+            else
+            {
+                spellBook.SetActive(false);
+                bookIsOpen = false;
+            }
+        } 
+            
+
 
     }
 
