@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         else if (isFlying)
         {
             rb.drag = airDrag;
-            speedMove = 5;
+            speedMove = 2;
         }
         else
         {
