@@ -45,8 +45,8 @@ public class PlayerMovement : MonoBehaviour
         interactWithTree.SetActive(false);
         playerHeight = 2;
         speedRotate = 2;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         spellBook.SetActive(false);
     }
